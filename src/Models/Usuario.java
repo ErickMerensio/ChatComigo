@@ -4,7 +4,9 @@
  */
 package Models;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
       
     private int id;
     private String nome;
@@ -54,7 +56,4 @@ public class Usuario {
     public String getSenha() {
         return senha;
     }
-    
-    
-
 }

@@ -5,7 +5,7 @@
 package View;
 
 import BancoDeDados.BancoDeDadosConexao;
-import Servidor.Servidor;
+//import Servidor.Servidor;
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
 import javax.swing.JTextField;
@@ -220,7 +220,7 @@ public class TelaInicial extends javax.swing.JFrame {
     try {
         Usuario usuario = repositorioUsuario.getUserByEmail(getTf_Email());
         if (usuario != null && usuario.getSenha().equals(geTP_Senha())) { 
-        TelaLogado logado = new TelaLogado();
+        TelaLogado logado = new TelaLogado(usuario);
         logado.setVisible(true);
         this.dispose();   
         } else {

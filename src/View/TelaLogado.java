@@ -5,28 +5,33 @@
 package View;
 
 
+import Models.Usuario;
 import Servidor.Cliente;
-import java.io.IOException;
+import Servidor.ServidorDeMensagem;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
+import java.io.IOException;
+import javax.swing.SwingUtilities;
 
-public class TelaLogado extends javax.swing.JFrame {   
-    
+
+
+public class TelaLogado extends javax.swing.JFrame{   
     private Cliente cliente;
-
-    public TelaLogado() {
+    private Usuario usuario;
+    
+    public TelaLogado(Usuario usuario) {
+        this.usuario = usuario;
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         try {
-            this.cliente = new Cliente(this);
+            this.cliente = new Cliente(this,usuario);  
+            new Thread(new ServidorDeMensagem(cliente.getSocket(),this)).start();
         } catch (IOException ex) {
             Logger.getLogger(TelaLogado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
        
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -224,13 +229,12 @@ public class TelaLogado extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_chatActionPerformed
 
     private void tf_chatInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tf_chatInputMethodTextChanged
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tf_chatInputMethodTextChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String mensagem = getTf_chat();
         cliente.enviarMensagem(mensagem);
-        ta_mensagem.setText(ta_mensagem.getText() + "\n" + mensagem);
         tf_chat.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -239,45 +243,16 @@ public class TelaLogado extends javax.swing.JFrame {
         return mensagem;
     }
 
-
       public void setChat(String mensagem) {
         tf_chat.setText(mensagem);
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaLogado().setVisible(true);
-            }
-        });
-    }
+    } 
+      
+      public void receberMensagem(String mensagem) {
+    SwingUtilities.invokeLater(() -> {
+        ta_mensagem.append("\n" + mensagem);
+        ta_mensagem.setCaretPosition(ta_mensagem.getDocument().getLength());
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NomeUm;
@@ -296,4 +271,5 @@ public class TelaLogado extends javax.swing.JFrame {
     private javax.swing.JTextArea ta_mensagem;
     private javax.swing.JTextField tf_chat;
     // End of variables declaration//GEN-END:variables
+
 }

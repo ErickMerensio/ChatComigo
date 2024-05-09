@@ -75,6 +75,19 @@ public class RepositorioDeUsuario {
         return null;
     }
      
+     public String getUserNameByEmail(String email) throws SQLException {
+    String sql = "SELECT nome FROM usuarios WHERE email = ?";
+    try (PreparedStatement statement = conexao.prepareStatement(sql)) {
+        statement.setString(1, email);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getString("nome");
+            }
+        }
+    }
+    return null;
+}
+     
     public void salvarUsuario(Usuario usuario) throws SQLException {
     String sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
     try (PreparedStatement statement = conexao.prepareStatement(sql)) {
@@ -83,7 +96,6 @@ public class RepositorioDeUsuario {
         statement.setString(3, usuario.getSenha());
         statement.executeUpdate();
     }
-}
-    
+}    
 }
    

@@ -1,17 +1,17 @@
 package Servidor;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-public class Servidor implements Runnable{
+public class Servidor implements Runnable {
 
     public Servidor() {
         escritores = new ArrayList<>();
@@ -22,14 +22,14 @@ public class Servidor implements Runnable{
     private ServerSocket servidor;
     private boolean acabado;
     private ExecutorService pool;
-    
+
     @Override
     public void run() {
         try {
             servidor = new ServerSocket(8089);
             pool = Executors.newCachedThreadPool();
             System.out.println("Você conectou-se a porta 8089");
-            while(!acabado) {
+            while (!acabado) {
                 Socket cliente = servidor.accept();
                 ServidorHandler servidorHandler = new ServidorHandler(cliente);
                 escritores.add(servidorHandler);
@@ -39,10 +39,11 @@ public class Servidor implements Runnable{
             encerrar();
         }
     }
-    public void transmissao(String mensagem) {
-        for(ServidorHandler sh : escritores) {
+
+    public void transmissao(String mensagem) throws IOException {
+        for (ServidorHandler sh : escritores) {
             if (sh != null) {
-              sh.transmitir(mensagem);  
+                sh.transmitir(mensagem);
             }
         }
     }
@@ -54,59 +55,53 @@ public class Servidor implements Runnable{
             if (!servidor.isClosed()) {
                 servidor.close();
             }
-            for(ServidorHandler sh : escritores) {
+            for (ServidorHandler sh : escritores) {
                 sh.encerrar();
             }
         } catch (IOException e) {
             encerrar();
         }
     }
-    class ServidorHandler implements  Runnable {
 
-        private Socket cliente;
-        private BufferedReader leitor;
+    class ServidorHandler implements Runnable {
+
+        private Socket socket;
         private PrintWriter escritor;
-        private String nome;
 
         public ServidorHandler(Socket cliente) {
-            this.cliente = cliente;
+            this.socket = cliente;
         }
 
         @Override
         public void run() {
 
-            try {
-                escritor = new PrintWriter(cliente.getOutputStream(),true);
-                leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-              //escritor.println("Escreva seu nome: ");
-                nome = leitor.readLine();
-                System.out.println(nome + " conectou-se ao chat!");
-                transmissao(nome + " entrou no chat!");
-                String mensagem;
+            while (true) {
+                try {
 
-                while((mensagem = leitor.readLine()) != null) {
-                    if (mensagem.equalsIgnoreCase("Sair")) {
-                        transmissao(nome + " saiu do chat!");
-                        encerrar();
-                    }
-                   transmissao(nome + ": " + mensagem);
+                    // Cria o fluxo de entrada para receber dados do cliente
+                    ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+
+                    // Recebe os dados enviados pelo cliente
+                    Mensagem data = (Mensagem) inputStream.readObject();
+
+                    transmissao(data.getUsuario().getNome() + " : " + data.getMensagem());
+
+                } catch (IOException | ClassNotFoundException e) {
+                    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, e);
                 }
-            }catch (IOException e) {
-
             }
-
         }
 
-        public void transmitir(String mensagem) {
+        public void transmitir(String mensagem) throws IOException {
+            escritor = new PrintWriter(socket.getOutputStream(),true);
             escritor.println(mensagem);
         }
 
         public void encerrar() {
             try {
                 escritor.close();
-                leitor.close();
-                if (!cliente.isClosed()) {
-                    cliente.close();
+                if (!socket.isClosed()) {
+                    socket.close();
                 }
             } catch (IOException e) {
 

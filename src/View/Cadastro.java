@@ -7,6 +7,7 @@ package View;
 import BancoDeDados.BancoDeDadosConexao;
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
+import Servidor.Cliente;
 import java.sql.SQLException;
 import java.sql.Connection;
 import javax.swing.JComboBox;
@@ -15,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Cadastro extends javax.swing.JFrame {
+    
 
     public Cadastro() {
         setLocationRelativeTo(null);
@@ -253,7 +255,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void Bt_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_CadastroActionPerformed
        
-         String nome = getTf_Nome();
+    String nome = getTf_Nome();
     String email = getTf_Email();
     String senha = geTf_Senha();
     
@@ -264,11 +266,11 @@ public class Cadastro extends javax.swing.JFrame {
     
     try (Connection conexao = BancoDeDados.BancoDeDadosConexao.getConnection()) {
         RepositorioDeUsuario repositorio = new RepositorioDeUsuario(conexao);
-        
         Usuario usuario = new Usuario(nome, email, senha);
         repositorio.salvarUsuario(usuario);
         limparCamposDeEntrada();
         JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+      
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Erro ao criar usuário: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
@@ -289,8 +291,6 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
     }
-    
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_Cadastro;
