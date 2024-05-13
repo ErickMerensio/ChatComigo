@@ -61,16 +61,9 @@ public class Cliente implements Runnable {
     public void enviarMensagem(String mensagem) {
         
         try {
-//            escritor = new PrintWriter(this.socket.getOutputStream(),true);
-            // Cria o fluxo de saída para enviar dados para o servidor
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-
-            // Envia os dados para o servidor
-            
             outputStream.writeObject(new Mensagem(mensagem,this.usuario));
             outputStream.flush();
-            // aqui que tem que colocar o nome
-//            escritor.println(mensagem + "\n");
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }

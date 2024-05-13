@@ -5,7 +5,6 @@ import View.TelaLogado;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +13,6 @@ import java.util.logging.Logger;
 public class ServidorDeMensagem implements Runnable{
     
        private BufferedReader leitor;
-       private PrintWriter escritor;
        private Socket cliente;
        private TelaLogado tela;
 
@@ -27,15 +25,15 @@ public class ServidorDeMensagem implements Runnable{
     public void run() {
        while(true) {
            
-           try {
+          try {
         leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
         String mensagem;
-        while ((mensagem = leitor.readLine()) != null) {
+       while ((mensagem = leitor.readLine()) != null) {
                 tela.receberMensagem(mensagem);
         }       
            } catch (IOException ex) {
-               Logger.getLogger(ServidorDeMensagem.class.getName()).log(Level.SEVERE, null, ex);
+              Logger.getLogger(ServidorDeMensagem.class.getName()).log(Level.SEVERE, null, ex);
            }       
-    }     
+   }     
    }
-}
+    }
