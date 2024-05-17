@@ -26,9 +26,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private Connection conexao;
     
     public TelaInicial() {
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
         try { 
             conexao = conexao = BancoDeDadosConexao.getConnection();
             repositorioUsuario = new RepositorioDeUsuario(conexao);
@@ -173,9 +174,9 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(lb_FacaSeuLogin)
                 .addGap(18, 18, 18)
+                .addComponent(lb_FacaSeuLogin)
+                .addGap(37, 37, 37)
                 .addComponent(lb_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

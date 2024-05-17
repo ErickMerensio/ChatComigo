@@ -83,8 +83,10 @@ public class Servidor implements Runnable {
 
                     // Recebe os dados enviados pelo cliente
                     Mensagem data = (Mensagem) inputStream.readObject();
-
-                    transmissao(data.getUsuario().getNome() + " : " + data.getMensagem());
+                    
+                   
+                   //transmissao(data.getUsuario().getNome()  + " : " + "\n" + data.getMensagem() + "\n");
+                   transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome()  + " : " + "\n" + data.getMensagem() + "\n");
 
                 } catch (IOException | ClassNotFoundException e) {
                     Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, e);

@@ -68,7 +68,7 @@ public class Cliente implements Runnable {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
    public  void encerrar () {
         try {
             leitor.close();
@@ -102,10 +102,5 @@ public class Cliente implements Runnable {
                encerrar();
             }
         }
-    }
-    
-      public static void main(String[] args) {
-        Cliente cliente = new Cliente();
-        cliente.run();
-    }   
+    } 
 }

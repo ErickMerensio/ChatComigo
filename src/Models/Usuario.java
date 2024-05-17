@@ -12,14 +12,24 @@ public class Usuario implements Serializable{
     private String nome;
     private String email;
     private String funcao;
-    private int celular;
+    private String celular;
     private String senha;
 
-    public Usuario(int id, String nome , String email , String senha) {
+    public Usuario(int id, String nome , String email , String senha, String celular, String funcao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.celular = celular;
+        this.funcao = funcao;
+    }
+    
+     public Usuario(String nome , String email , String senha, String celular, String funcao) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.celular = celular;
+        this.funcao = funcao;
     }
     
      public Usuario(String nome , String email , String senha) {
@@ -37,7 +47,7 @@ public class Usuario implements Serializable{
         return id;
     }
           
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 

@@ -4,24 +4,21 @@
  */
 package View;
 
-import BancoDeDados.BancoDeDadosConexao;
+
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
-import Servidor.Cliente;
 import java.sql.SQLException;
 import java.sql.Connection;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 public class Cadastro extends javax.swing.JFrame {
     
 
     public Cadastro() {
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
         initComponents();
+         setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -127,9 +124,9 @@ public class Cadastro extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lb_Logo)
-                .addGap(46, 46, 46)
+                .addGap(60, 60, 60)
                 .addComponent(lb_NomeDoProjeto)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,10 +145,6 @@ public class Cadastro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Bt_Cadastro)
-                .addGap(154, 154, 154))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -171,20 +164,22 @@ public class Cadastro extends javax.swing.JFrame {
                                     .addComponent(lb_Senha)
                                     .addComponent(lb_Celular)
                                     .addComponent(lb_SecretarioOuInspetor)))
-                            .addComponent(cb_SecretarioOuInspetor, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(lb_FacaSeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cb_SecretarioOuInspetor, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_FacaSeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Bt_Cadastro)
+                .addGap(122, 122, 122))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb_FacaSeuLogin)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(lb_Nome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +209,7 @@ public class Cadastro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+   
     public String getTf_Nome() {
         String nome = tf_Nome.getText();
         return nome;
@@ -230,8 +225,8 @@ public class Cadastro extends javax.swing.JFrame {
         return senha;
     }
 
-    public int getTf_Celular() {
-        Integer celular = Integer.parseInt((tf_Celular.getText()));
+    public String getTf_Celular() {
+        String celular = tf_Celular.getText();
         return celular;
     }
 
@@ -247,26 +242,67 @@ public class Cadastro extends javax.swing.JFrame {
     Senha.setText("");
     tf_Celular.setText("");
 }
-         
+    
+    
+    public boolean validarNome(String nome) {
+    return nome != null && nome.trim().length() >= 3 && nome.trim().length() <= 100;
+}  
+    
+    public boolean validarEmail(String email) {
+    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    return email.matches(regex);
+}
+    
+    public boolean validarSenha(String senha) {
+    return senha != null && senha.trim().length() >= 4;
+}
+    public  boolean validarNumero(String celular) {
+        String regex = "\\(?\\d{2}\\)?\\s?9\\d{4}-\\d{4}";
+        return celular.matches(regex);
+    }
+    
+    
     
     private void tf_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeActionPerformed
 
     }//GEN-LAST:event_tf_NomeActionPerformed
 
     private void Bt_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_CadastroActionPerformed
-       
     String nome = getTf_Nome();
     String email = getTf_Email();
     String senha = geTf_Senha();
+    String celular = getTf_Celular();
+    String funcao = getCb_SecretarioOuInspetor();
     
     if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
         return;
     }
     
+    if (!validarNome(nome)) {
+    JOptionPane.showMessageDialog(this, "O nome deve ter entre 3 e 50 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    
+    if (!validarEmail(email)) {
+    JOptionPane.showMessageDialog(this, "O email deve seguir a seguinte regra nome@dominio.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    
+    if (!validarSenha(senha)) {
+    JOptionPane.showMessageDialog(this, "A senha tem que possuir mais que 3 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    
+      if (!validarNumero(celular)) {
+    JOptionPane.showMessageDialog(this, "O número deve começar com o dd e depois os numero ex (11) 1111-1111.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    
+    
     try (Connection conexao = BancoDeDados.BancoDeDadosConexao.getConnection()) {
         RepositorioDeUsuario repositorio = new RepositorioDeUsuario(conexao);
-        Usuario usuario = new Usuario(nome, email, senha);
+        Usuario usuario = new Usuario(nome, email, senha ,celular , funcao);
         repositorio.salvarUsuario(usuario);
         limparCamposDeEntrada();
         JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -283,14 +319,6 @@ public class Cadastro extends javax.swing.JFrame {
             this.dispose();
             inicio.setVisible(true);
     }//GEN-LAST:event_lb_LogoMouseClicked
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Cadastro().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_Cadastro;

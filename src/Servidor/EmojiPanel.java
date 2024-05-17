@@ -9,8 +9,6 @@ import View.TelaLogado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
