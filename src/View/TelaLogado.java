@@ -13,8 +13,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +23,8 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 
 
@@ -309,8 +309,8 @@ public class TelaLogado extends javax.swing.JFrame{
     public void actionPerformed(ActionEvent e) {
           
         JDialog emojiDialog = new JDialog();
-        emojiDialog.setTitle("Escolha um Emoji");
-        emojiDialog.setSize(200, 200);
+        emojiDialog.setTitle(usuario.getNome().toUpperCase() + " escolha um Emoji");
+        emojiDialog.setSize(300, 300);
         emojiDialog.setLocationRelativeTo(null);
         EmojiPanel emojiPanel = new EmojiPanel(usuario,TelaLogado.this);
         emojiDialog.add(emojiPanel);
@@ -325,6 +325,7 @@ public class TelaLogado extends javax.swing.JFrame{
 
     private void jb_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_fileActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Text Files", "txt", "csv"));
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -384,8 +385,7 @@ public class TelaLogado extends javax.swing.JFrame{
         tf_chat.setText("");
     }
       }
-
-      
+         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NomeUm;
     private javax.swing.JButton bt_quit;

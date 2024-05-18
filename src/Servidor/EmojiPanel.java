@@ -23,16 +23,32 @@ public class EmojiPanel extends JPanel {
             this.usuario = usuario;
             this.cliente = new Cliente(chat,usuario);
             this.chat = new TelaLogado(usuario);
-            //new Thread(new ServidorDeMensagem(cliente.getSocket(),chat)).start();
-            new ServidorDeMensagem(cliente.getSocket(),chat);
-            // Adicionar botões de emojis
-            JButton emojiButton1 = new JButton("\uD83D\uDE00"); // Exemplo de emoji (smiley face)
-            emojiButton1.addActionListener(new EmojiButtonListener("\uD83D\uDE00")); // Adiciona listener para enviar emoji ao clicar
-            add(emojiButton1);
-            // Adicione mais botões conforme necessário
+         
+            new ServidorDeMensagem(cliente.getSocket(),chat);      
+            addEmoji("😀");
+            addEmoji("👍");
+            addEmoji("😭");
+            addEmoji("❤");
+            addEmoji("🐸");
+            addEmoji("☠");
+            addEmoji("✈");
+            addEmoji("👎");
+            addEmoji("🤜");
+            addEmoji("🤛");
+            addEmoji("💔");
+            addEmoji("💩");
+            addEmoji("🔥");
+            addEmoji("👀");
+            addEmoji("🤡");
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(EmojiPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+    }
+    
+       private void addEmoji(String emoji) {
+        JButton botao = new JButton(emoji);
+        botao.addActionListener(new EmojiButtonListener(emoji));
+        add(botao);
     }
 
     private class EmojiButtonListener implements ActionListener {
@@ -44,7 +60,7 @@ public class EmojiPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-           cliente.enviarMensagem(emoji);
+            cliente.enviarMensagem(emoji);
         }
     }
 
