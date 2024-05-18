@@ -9,6 +9,7 @@ import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
 import java.sql.SQLException;
 import java.sql.Connection;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Cadastro extends javax.swing.JFrame {
@@ -40,7 +41,9 @@ public class Cadastro extends javax.swing.JFrame {
         lb_FacaSeuLogin = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lb_NomeDoProjeto = new javax.swing.JLabel();
-        lb_Logo = new javax.swing.JLabel();
+        lb_voltar = new javax.swing.JLabel();
+        lb_sexo = new javax.swing.JLabel();
+        cb_MasculinoOuFeminino = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -51,6 +54,11 @@ public class Cadastro extends javax.swing.JFrame {
         cb_SecretarioOuInspetor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cb_SecretarioOuInspetor.setForeground(new java.awt.Color(0, 204, 102));
         cb_SecretarioOuInspetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretario", "Inspetor" }));
+        cb_SecretarioOuInspetor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_SecretarioOuInspetorActionPerformed(evt);
+            }
+        });
 
         lb_SecretarioOuInspetor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lb_SecretarioOuInspetor.setForeground(new java.awt.Color(0, 204, 102));
@@ -110,10 +118,10 @@ public class Cadastro extends javax.swing.JFrame {
         lb_NomeDoProjeto.setForeground(new java.awt.Color(0, 204, 102));
         lb_NomeDoProjeto.setText("ChatComigo");
 
-        lb_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/convert_to_image.png"))); // NOI18N
-        lb_Logo.addMouseListener(new java.awt.event.MouseAdapter() {
+        lb_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/voltar.png"))); // NOI18N
+        lb_voltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lb_LogoMouseClicked(evt);
+                lb_voltarMouseClicked(evt);
             }
         });
 
@@ -122,9 +130,9 @@ public class Cadastro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(lb_Logo)
-                .addGap(60, 60, 60)
+                .addGap(27, 27, 27)
+                .addComponent(lb_voltar)
+                .addGap(68, 68, 68)
                 .addComponent(lb_NomeDoProjeto)
                 .addContainerGap(107, Short.MAX_VALUE))
         );
@@ -133,10 +141,18 @@ public class Cadastro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lb_Logo)
+                    .addComponent(lb_voltar)
                     .addComponent(lb_NomeDoProjeto))
                 .addGap(30, 30, 30))
         );
+
+        lb_sexo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lb_sexo.setForeground(new java.awt.Color(0, 204, 102));
+        lb_sexo.setText("Sexo");
+
+        cb_MasculinoOuFeminino.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cb_MasculinoOuFeminino.setForeground(new java.awt.Color(0, 204, 102));
+        cb_MasculinoOuFeminino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,20 +173,21 @@ public class Cadastro extends javax.swing.JFrame {
                             .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_SecretarioOuInspetor, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_FacaSeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lb_Email)
                                     .addComponent(lb_Senha)
                                     .addComponent(lb_Celular)
-                                    .addComponent(lb_SecretarioOuInspetor)))
-                            .addComponent(cb_SecretarioOuInspetor, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lb_FacaSeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lb_SecretarioOuInspetor)
+                                    .addComponent(lb_sexo)))
+                            .addComponent(cb_MasculinoOuFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(Bt_Cadastro)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Bt_Cadastro)
-                .addGap(122, 122, 122))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,9 +216,13 @@ public class Cadastro extends javax.swing.JFrame {
                 .addComponent(lb_SecretarioOuInspetor)
                 .addGap(12, 12, 12)
                 .addComponent(cb_SecretarioOuInspetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lb_sexo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cb_MasculinoOuFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(Bt_Cadastro)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -234,6 +255,12 @@ public class Cadastro extends javax.swing.JFrame {
        String secretarioOuInspetor = String.valueOf(cb_SecretarioOuInspetor.getSelectedItem());
        return secretarioOuInspetor; 
     }
+
+    public String getCb_MasculinoOuFemenino() {
+        String masculinoOuFemenino = String.valueOf(cb_MasculinoOuFeminino.getSelectedItem());
+        return masculinoOuFemenino;
+    }
+    
     
     
     private void limparCamposDeEntrada() {
@@ -273,6 +300,7 @@ public class Cadastro extends javax.swing.JFrame {
     String senha = geTf_Senha();
     String celular = getTf_Celular();
     String funcao = getCb_SecretarioOuInspetor();
+    String sexo = getCb_MasculinoOuFemenino();
     
     if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
@@ -302,7 +330,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     try (Connection conexao = BancoDeDados.BancoDeDadosConexao.getConnection()) {
         RepositorioDeUsuario repositorio = new RepositorioDeUsuario(conexao);
-        Usuario usuario = new Usuario(nome, email, senha ,celular , funcao);
+        Usuario usuario = new Usuario(nome, email, senha ,celular , funcao, sexo);
         repositorio.salvarUsuario(usuario);
         limparCamposDeEntrada();
         JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -314,26 +342,32 @@ public class Cadastro extends javax.swing.JFrame {
 }
     }//GEN-LAST:event_Bt_CadastroActionPerformed
 
-    private void lb_LogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_LogoMouseClicked
+    private void lb_voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_voltarMouseClicked
             TelaInicial inicio = new TelaInicial();
             this.dispose();
             inicio.setVisible(true);
-    }//GEN-LAST:event_lb_LogoMouseClicked
+    }//GEN-LAST:event_lb_voltarMouseClicked
+
+    private void cb_SecretarioOuInspetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_SecretarioOuInspetorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_SecretarioOuInspetorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_Cadastro;
     private javax.swing.JPasswordField Senha;
+    private javax.swing.JComboBox<String> cb_MasculinoOuFeminino;
     private javax.swing.JComboBox<String> cb_SecretarioOuInspetor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lb_Celular;
     private javax.swing.JLabel lb_Email;
     private javax.swing.JLabel lb_FacaSeuLogin;
-    private javax.swing.JLabel lb_Logo;
     private javax.swing.JLabel lb_Nome;
     private javax.swing.JLabel lb_NomeDoProjeto;
     private javax.swing.JLabel lb_SecretarioOuInspetor;
     private javax.swing.JLabel lb_Senha;
+    private javax.swing.JLabel lb_sexo;
+    private javax.swing.JLabel lb_voltar;
     private javax.swing.JTextField tf_Celular;
     private javax.swing.JTextField tf_Email;
     private javax.swing.JTextField tf_Nome;

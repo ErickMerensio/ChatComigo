@@ -8,6 +8,9 @@ import BancoDeDados.BancoDeDadosConexao;
 //import Servidor.Servidor;
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
+import View.Cadastro;
+import View.TelaLogado;
+import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,6 +27,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private RepositorioDeUsuario repositorioUsuario;
     private Connection conexao;
+    private boolean isPasswordVisible = false; 
     
     public TelaInicial() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -54,6 +58,7 @@ public class TelaInicial extends javax.swing.JFrame {
         Senha = new javax.swing.JPasswordField();
         Bt_Cadastrar = new javax.swing.JButton();
         Bt_Entrar = new javax.swing.JButton();
+        bt_mostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -68,6 +73,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lb_NomeDoProjeto.setForeground(new java.awt.Color(0, 204, 102));
         lb_NomeDoProjeto.setText("ChatComigo");
 
+        lb_Logo.setForeground(new java.awt.Color(0, 0, 0));
         lb_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/convert_to_image.png"))); // NOI18N
         lb_Logo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -89,7 +95,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lb_Logo)
                     .addComponent(lb_NomeDoProjeto))
@@ -142,6 +148,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-off-outline-custom.png"))); // NOI18N
+        bt_mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_mostrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -151,9 +164,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(lb_Email))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(lb_Senha))
@@ -166,8 +176,14 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(Bt_Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lb_FacaSeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bt_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(lb_Email)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,19 +192,21 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lb_FacaSeuLogin)
-                .addGap(37, 37, 37)
+                .addGap(25, 25, 25)
                 .addComponent(lb_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_mostrar))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bt_Cadastrar)
                     .addComponent(Bt_Entrar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -232,6 +250,23 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_Bt_EntrarActionPerformed
 
+    
+    private void bt_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mostrarActionPerformed
+          if (isPasswordVisible) {
+        Senha.setEchoChar('*'); // Torna a senha oculta
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-off-outline-custom.png"))); // Altera o ícone para mostrar a senha
+    } else {
+        Senha.setEchoChar((char) 0); // Torna a senha visível
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-outline-custom.png"))); // Altera o ícone para ocultar a senha
+    }
+    
+    // Inverte o valor da flag de visibilidade
+    isPasswordVisible = !isPasswordVisible;
+    }//GEN-LAST:event_bt_mostrarActionPerformed
+
+
+  
+    
     public String getTf_Email() {
         String email = tf_Email.getText();
         return email;
@@ -262,6 +297,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton Bt_Cadastrar;
     private javax.swing.JButton Bt_Entrar;
     private javax.swing.JPasswordField Senha;
+    private javax.swing.JButton bt_mostrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lb_Email;

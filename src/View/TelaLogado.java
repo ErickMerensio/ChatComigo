@@ -43,8 +43,17 @@ public class TelaLogado extends javax.swing.JFrame{
             this.cliente = new Cliente(this,usuario);  
             new Thread(new ServidorDeMensagem(cliente.getSocket(),this)).start();
                ta_mensagem.setEditable(false);
-               lb_Saudacao.setText(usuario.getFuncao().toUpperCase() + " " + usuario.getNome().toUpperCase());
-               //lb_Saudacao.setText(usuario.getNome().toUpperCase());
+               
+               if(usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Secretario")) {
+                String troca = usuario.getFuncao().replace("o", "a");
+               lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
+               }else if(usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Inspetor")){
+                   String troca = usuario.getFuncao().replace("r", "ra");
+                   lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
+               }else
+                  lb_Saudacao.setText(usuario.getFuncao().toUpperCase() + " " + usuario.getNome().toUpperCase());
+               
+               
                lb_Saudacao.setForeground(new java.awt.Color(0, 204, 102));
         } catch (IOException ex) {
             Logger.getLogger(TelaLogado.class.getName()).log(Level.SEVERE, null, ex);

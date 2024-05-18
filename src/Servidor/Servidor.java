@@ -86,7 +86,25 @@ public class Servidor implements Runnable {
                     
                    
                    //transmissao(data.getUsuario().getNome()  + " : " + "\n" + data.getMensagem() + "\n");
-                   transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome()  + " : " + "\n" + data.getMensagem() + "\n");
+                   
+                   if(data.getUsuario().getSexo().equals("Feminino") && data.getUsuario().getFuncao().equals("Inspetor")) {
+                         String troca = data.getUsuario().getFuncao().replace("r", "ra");
+                         transmissao(troca + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
+                       } else if(data.getUsuario().getSexo().equals("Feminino") && data.getUsuario().getFuncao().equals("Secretario")) {
+                       String troca = data.getUsuario().getFuncao().replace("o", "a");
+                         transmissao(troca + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
+                   } else {
+                           transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
+                       }
+                   
+//                   if(data.getUsuario().getNome().endsWith("a") && data.getUsuario().getFuncao().equals("Secretario")) {
+//                        String troca = data.getUsuario().getFuncao().replace("o", "a");
+//                         transmissao(troca + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
+//                       }else {
+//                       //transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
+//                   }
+                 
+//                 transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
 
                 } catch (IOException | ClassNotFoundException e) {
                     Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, e);

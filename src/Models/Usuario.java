@@ -14,22 +14,25 @@ public class Usuario implements Serializable{
     private String funcao;
     private String celular;
     private String senha;
+    private String sexo;
 
-    public Usuario(int id, String nome , String email , String senha, String celular, String funcao) {
+    public Usuario(int id, String nome , String email , String senha, String celular, String funcao, String sexo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.celular = celular;
         this.funcao = funcao;
+         this.sexo = sexo;
     }
     
-     public Usuario(String nome , String email , String senha, String celular, String funcao) {
+     public Usuario(String nome , String email , String senha, String celular, String funcao , String sexo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.celular = celular;
         this.funcao = funcao;
+        this.sexo = sexo;
     }
     
      public Usuario(String nome , String email , String senha) {
@@ -66,4 +69,9 @@ public class Usuario implements Serializable{
     public String getSenha() {
         return senha;
     }
+
+    public String getSexo() {
+        return sexo;
+    }
+    
 }

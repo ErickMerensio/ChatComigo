@@ -35,7 +35,8 @@ public class RepositorioDeUsuario {
                         resultSet.getString("email"),
                         resultSet.getString("senha"),
                             resultSet.getString("celular"),
-                            resultSet.getString("funcao")
+                            resultSet.getString("funcao"),
+                              resultSet.getString("sexo")
                     );
                 }
             }
@@ -55,7 +56,8 @@ public class RepositorioDeUsuario {
                         resultSet.getString("email"),
                         resultSet.getString("senha"),
                         resultSet.getString("celular"),
-                        resultSet.getString("funcao")
+                        resultSet.getString("funcao"),
+                            resultSet.getString("sexo")
                     );
                 }
             }
@@ -93,13 +95,14 @@ public class RepositorioDeUsuario {
 }
      
     public void salvarUsuario(Usuario usuario) throws SQLException {
-    String sql = "INSERT INTO usuarios (nome, email, senha , celular , funcao) VALUES (?, ?, ? ,? ,?)";
+    String sql = "INSERT INTO usuarios (nome, email, senha , celular , funcao , sexo) VALUES (?, ?, ? ,? ,?, ?)";
     try (PreparedStatement statement = conexao.prepareStatement(sql)) {
         statement.setString(1, usuario.getNome());
         statement.setString(2, usuario.getEmail());
         statement.setString(3, usuario.getSenha());
         statement.setString(4, usuario.getCelular());
         statement.setString(5, usuario.getFuncao());
+        statement.setString(6, usuario.getSexo());
         statement.executeUpdate();
     }
 }    
