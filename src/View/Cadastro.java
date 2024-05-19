@@ -349,7 +349,7 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_voltarMouseClicked
 
     private void cb_SecretarioOuInspetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_SecretarioOuInspetorActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cb_SecretarioOuInspetorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

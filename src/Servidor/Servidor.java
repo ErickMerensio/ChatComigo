@@ -78,15 +78,9 @@ public class Servidor implements Runnable {
             while (true) {
                 try {
 
-                    // Cria o fluxo de entrada para receber dados do cliente
                     ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-
-                    // Recebe os dados enviados pelo cliente
                     Mensagem data = (Mensagem) inputStream.readObject();
-                    
-                   
-                   //transmissao(data.getUsuario().getNome()  + " : " + "\n" + data.getMensagem() + "\n");
-                   
+      
                    if(data.getUsuario().getSexo().equals("Feminino") && data.getUsuario().getFuncao().equals("Inspetor")) {
                          String troca = data.getUsuario().getFuncao().replace("r", "ra");
                          transmissao(troca + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
@@ -96,16 +90,6 @@ public class Servidor implements Runnable {
                    } else {
                            transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
                        }
-                   
-//                   if(data.getUsuario().getNome().endsWith("a") && data.getUsuario().getFuncao().equals("Secretario")) {
-//                        String troca = data.getUsuario().getFuncao().replace("o", "a");
-//                         transmissao(troca + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
-//                       }else {
-//                       //transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
-//                   }
-                 
-//                 transmissao(data.getUsuario().getFuncao() + " " +data.getUsuario().getNome() + " : " + "\n" + data.getMensagem() + "\n");
-
                 } catch (IOException | ClassNotFoundException e) {
                     Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, e);
                 }

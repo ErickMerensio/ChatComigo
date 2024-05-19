@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
-
 
 import Models.Usuario;
 import Servidor.Cliente;
@@ -24,10 +19,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-
-
-
 
 public class TelaLogado extends javax.swing.JFrame{   
     private Cliente cliente;
@@ -77,6 +68,7 @@ public class TelaLogado extends javax.swing.JFrame{
         jb_emoji = new javax.swing.JButton();
         jb_file = new javax.swing.JButton();
         bt_quit = new javax.swing.JButton();
+        jb_logo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -202,7 +194,7 @@ public class TelaLogado extends javax.swing.JFrame{
                 .addGap(14, 14, 14)
                 .addComponent(NomeUm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -219,7 +211,7 @@ public class TelaLogado extends javax.swing.JFrame{
 
         bt_quit.setBackground(new java.awt.Color(255, 255, 255));
         bt_quit.setForeground(new java.awt.Color(255, 255, 255));
-        bt_quit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/exit-run-custom (1).png"))); // NOI18N
+        bt_quit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sair.png"))); // NOI18N
         bt_quit.setBorder(null);
         bt_quit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,22 +242,29 @@ public class TelaLogado extends javax.swing.JFrame{
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jb_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logo.png"))); // NOI18N
+        jb_logo.setBorder(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
+                .addComponent(jb_logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(248, 248, 248))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jb_logo))
+                .addGap(26, 26, 26)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -330,17 +329,14 @@ public class TelaLogado extends javax.swing.JFrame{
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             try {
-                // Verifica se o arquivo selecionado é um arquivo de texto (TXT ou CSV)
                 String fileName = selectedFile.getName();
                 if (fileName.endsWith(".txt") || fileName.endsWith(".csv")) {
-                    // Realiza a leitura do arquivo
                     StringBuilder content = new StringBuilder();
                     try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
                         String line;
                         while ((line = reader.readLine()) != null) {
                             content.append(line).append("\n");
                         }
-                        // Exibe o conteúdo do arquivo
                        cliente.enviarMensagem(content.toString());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro ao ler o arquivo: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -397,6 +393,7 @@ public class TelaLogado extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_emoji;
     private javax.swing.JButton jb_file;
+    private javax.swing.JButton jb_logo;
     private javax.swing.JLabel lb_Saudacao;
     private javax.swing.JTextArea ta_mensagem;
     private javax.swing.JTextField tf_chat;

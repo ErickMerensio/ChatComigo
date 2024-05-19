@@ -1,10 +1,6 @@
 package Servidor;
 
-import BancoDeDados.BancoDeDadosConexao;
 import Models.Usuario;
-import Repositorio.RepositorioDeUsuario;
-import View.Cadastro;
-import View.TelaInicial;
 import View.TelaLogado;
 import java.io.BufferedReader;
 import java.io.IOException;

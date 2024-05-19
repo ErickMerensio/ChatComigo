@@ -74,7 +74,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lb_NomeDoProjeto.setText("ChatComigo");
 
         lb_Logo.setForeground(new java.awt.Color(0, 0, 0));
-        lb_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/convert_to_image.png"))); // NOI18N
+        lb_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logo.png"))); // NOI18N
         lb_Logo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_LogoMouseClicked(evt);
@@ -253,14 +253,12 @@ public class TelaInicial extends javax.swing.JFrame {
     
     private void bt_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mostrarActionPerformed
           if (isPasswordVisible) {
-        Senha.setEchoChar('*'); // Torna a senha oculta
+        Senha.setEchoChar('*');
         bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-off-outline-custom.png"))); // Altera o ícone para mostrar a senha
     } else {
-        Senha.setEchoChar((char) 0); // Torna a senha visível
+        Senha.setEchoChar((char) 0);
         bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-outline-custom.png"))); // Altera o ícone para ocultar a senha
     }
-    
-    // Inverte o valor da flag de visibilidade
     isPasswordVisible = !isPasswordVisible;
     }//GEN-LAST:event_bt_mostrarActionPerformed
 
@@ -282,8 +280,6 @@ public class TelaInicial extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaInicial().setVisible(true);
