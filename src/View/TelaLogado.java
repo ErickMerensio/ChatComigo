@@ -5,6 +5,7 @@ import Servidor.Cliente;
 import Servidor.EmojiPanel;
 import Servidor.ServidorDeMensagem;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,43 +15,50 @@ import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class TelaLogado extends javax.swing.JFrame{   
+public class TelaLogado extends javax.swing.JFrame {
+
     private Cliente cliente;
     private Usuario usuario;
-     
+    private ImageIcon imagem = new ImageIcon(getClass().getResource("/Imagens/fundoJava.png"));
+    private Image imagemOriginal = imagem.getImage();
+    private Image imagemAlterada = imagemOriginal.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+
     public TelaLogado(Usuario usuario) {
         this.usuario = usuario;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setIconImage(imagemAlterada);
+        setTitle("ChatComigo");
         initComponents();
         setLocationRelativeTo(null);
         try {
-            this.cliente = new Cliente(this,usuario);  
-            new Thread(new ServidorDeMensagem(cliente.getSocket(),this)).start();
-               ta_mensagem.setEditable(false);
-               
-               if(usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Secretario")) {
+            this.cliente = new Cliente(this, usuario);
+            new Thread(new ServidorDeMensagem(cliente.getSocket(), this)).start();
+            ta_mensagem.setEditable(false);
+
+            if (usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Secretario")) {
                 String troca = usuario.getFuncao().replace("o", "a");
-               lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
-               }else if(usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Inspetor")){
-                   String troca = usuario.getFuncao().replace("r", "ra");
-                   lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
-               }else
-                  lb_Saudacao.setText(usuario.getFuncao().toUpperCase() + " " + usuario.getNome().toUpperCase());
-               
-               
-               lb_Saudacao.setForeground(new java.awt.Color(0, 204, 102));
+                lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
+            } else if (usuario.getSexo().equals("Feminino") && usuario.getFuncao().equals("Inspetor")) {
+                String troca = usuario.getFuncao().replace("r", "ra");
+                lb_Saudacao.setText(troca.toUpperCase() + " " + usuario.getNome().toUpperCase());
+            } else {
+                lb_Saudacao.setText(usuario.getFuncao().toUpperCase() + " " + usuario.getNome().toUpperCase());
+            }
+
+            lb_Saudacao.setForeground(new java.awt.Color(0, 204, 102));
         } catch (IOException ex) {
             Logger.getLogger(TelaLogado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -121,7 +129,7 @@ public class TelaLogado extends javax.swing.JFrame{
             }
         });
 
-        ta_mensagem.setBackground(new java.awt.Color(255, 255, 255));
+        ta_mensagem.setBackground(new java.awt.Color(227, 225, 217));
         ta_mensagem.setColumns(20);
         ta_mensagem.setForeground(new java.awt.Color(0, 0, 0));
         ta_mensagem.setRows(5);
@@ -283,9 +291,9 @@ public class TelaLogado extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void tf_chatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_chatActionPerformed
-         String mensagem = getTf_chat(); 
-    cliente.enviarMensagem(mensagem); 
-    tf_chat.setText(""); 
+        String mensagem = getTf_chat();
+        cliente.enviarMensagem(mensagem);
+        tf_chat.setText("");
     }//GEN-LAST:event_tf_chatActionPerformed
 
     private void tf_chatInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tf_chatInputMethodTextChanged
@@ -299,23 +307,23 @@ public class TelaLogado extends javax.swing.JFrame{
     }//GEN-LAST:event_bt_saidaActionPerformed
 
     private void jb_emojiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_emojiActionPerformed
- 
+
     }//GEN-LAST:event_jb_emojiActionPerformed
 
     private void jb_emojiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_emojiMouseClicked
-         jb_emoji.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-          
-        JDialog emojiDialog = new JDialog();
-        emojiDialog.setTitle(usuario.getNome().toUpperCase() + " escolha um Emoji");
-        emojiDialog.setSize(300, 300);
-        emojiDialog.setLocationRelativeTo(null);
-        EmojiPanel emojiPanel = new EmojiPanel(usuario,TelaLogado.this);
-        emojiDialog.add(emojiPanel);
-        emojiDialog.setVisible(true);
-    }
-});
+        jb_emoji.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JDialog emojiDialog = new JDialog();
+                emojiDialog.setTitle(usuario.getNome().toUpperCase() + " escolha um Emoji");
+                emojiDialog.setSize(300, 300);
+                emojiDialog.setLocationRelativeTo(null);
+                EmojiPanel emojiPanel = new EmojiPanel(usuario, TelaLogado.this);
+                emojiDialog.add(emojiPanel);
+                emojiDialog.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jb_emojiMouseClicked
 
     private void jb_fileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_fileMouseClicked
@@ -337,7 +345,7 @@ public class TelaLogado extends javax.swing.JFrame{
                         while ((linha = reader.readLine()) != null) {
                             conteudo.append(linha).append("\n");
                         }
-                       cliente.enviarMensagem(conteudo.toString());
+                        cliente.enviarMensagem(conteudo.toString());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro ao ler o arquivo: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                     }
@@ -351,37 +359,42 @@ public class TelaLogado extends javax.swing.JFrame{
     }//GEN-LAST:event_jb_fileActionPerformed
 
     private void bt_quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_quitActionPerformed
-        System.exit(0);       
+        System.exit(0);
     }//GEN-LAST:event_bt_quitActionPerformed
 
-    
+    public String getLb_Saudacao() {
+        String texto = lb_Saudacao.getText();
+        return texto;
+    }
+
     public String getTf_chat() {
         String mensagem = tf_chat.getText();
         return mensagem;
     }
 
-      public void setChat(String mensagem) {
+    public void setChat(String mensagem) {
         tf_chat.setText(mensagem);
-    } 
-      
-      public void receberMensagem(String mensagem) {
-    SwingUtilities.invokeLater(() -> {  
-      ta_mensagem.append("\n" + mensagem);
-       ta_mensagem.setCaretPosition(ta_mensagem.getDocument().getLength());
-    });
-}   
-      public void alterarCorNomeUsuario(Color cor) {
-          lb_Saudacao.setForeground(cor);
-}
-      
-      private void tf_chatKeyPressed(java.awt.event.KeyEvent evt) {                                   
-    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        String mensagem = getTf_chat();
-        cliente.enviarMensagem(mensagem);
-        tf_chat.setText("");
     }
-      }
-         
+
+    public void receberMensagem(String mensagem) {
+        SwingUtilities.invokeLater(() -> {
+            ta_mensagem.append("\n" + mensagem );
+            ta_mensagem.setCaretPosition(ta_mensagem.getDocument().getLength());
+        });
+    }
+
+    public void alterarCorNomeUsuario(Color cor) {
+        lb_Saudacao.setForeground(cor);
+    }
+
+    private void tf_chatKeyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String mensagem = getTf_chat();
+            cliente.enviarMensagem(mensagem);
+            tf_chat.setText("");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NomeUm;
     private javax.swing.JButton bt_quit;

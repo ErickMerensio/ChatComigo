@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Models;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable{
-      
+public class Usuario implements Serializable {
+
     private int id;
     private String nome;
     private String email;
@@ -16,17 +12,8 @@ public class Usuario implements Serializable{
     private String senha;
     private String sexo;
 
-    public Usuario(int id, String nome , String email , String senha, String celular, String funcao, String sexo) {
+    public Usuario(int id, String nome, String email, String senha, String celular, String funcao, String sexo) {
         this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.celular = celular;
-        this.funcao = funcao;
-         this.sexo = sexo;
-    }
-    
-     public Usuario(String nome , String email , String senha, String celular, String funcao , String sexo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -34,14 +21,23 @@ public class Usuario implements Serializable{
         this.funcao = funcao;
         this.sexo = sexo;
     }
-    
-     public Usuario(String nome , String email , String senha) {
+
+    public Usuario(String nome, String email, String senha, String celular, String funcao, String sexo) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.celular = celular;
+        this.funcao = funcao;
+        this.sexo = sexo;
+    }
+
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
     }
-     
-     public Usuario(int id, String nome) {
+
+    public Usuario(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -49,7 +45,7 @@ public class Usuario implements Serializable{
     public int getId() {
         return id;
     }
-          
+
     public String getCelular() {
         return celular;
     }
@@ -73,5 +69,5 @@ public class Usuario implements Serializable{
     public String getSexo() {
         return sexo;
     }
-    
+
 }

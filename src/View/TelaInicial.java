@@ -1,36 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import BancoDeDados.BancoDeDadosConexao;
-//import Servidor.Servidor;
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
-/**
- *
- * @author Leko
- */
 public class TelaInicial extends javax.swing.JFrame {
 
     private RepositorioDeUsuario repositorioUsuario;
     private Connection conexao;
-    private boolean senhaVisivel = false; 
-    
+    private boolean senhaVisivel = false;
+    private ImageIcon imagem = new ImageIcon(getClass().getResource("/Imagens/fundoJava.png"));
+    private Image imagemOriginal = imagem.getImage();
+    private Image imagemAlterada = imagemOriginal.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+
     public TelaInicial() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setTitle("ChatComigo");
         initComponents();
+        setIconImage(imagemAlterada);
         setLocationRelativeTo(null);
-        try { 
+        try {
             conexao = conexao = BancoDeDadosConexao.getConnection();
             repositorioUsuario = new RepositorioDeUsuario(conexao);
         } catch (SQLException ex) {
@@ -38,7 +36,6 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -231,45 +228,43 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_Bt_CadastrarActionPerformed
 
     private void Bt_EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_EntrarActionPerformed
-   
-    try {
-        Usuario usuario = repositorioUsuario.getUserByEmail(getTf_Email());
-        if (usuario != null && usuario.getSenha().equals(geTP_Senha())) { 
-        TelaLogado logado = new TelaLogado(usuario);
-        logado.setVisible(true);
-        this.dispose();   
-        } else {
-            JOptionPane.showMessageDialog(this, "Credenciais inválidas. Por favor, verifique seu email e senha.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+
+        try {
+            Usuario usuario = repositorioUsuario.getUserByEmail(getTf_Email());
+            if (usuario != null && usuario.getSenha().equals(geTP_Senha())) {
+                TelaLogado logado = new TelaLogado(usuario);
+                logado.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Credenciais inválidas. Por favor, verifique seu email e senha.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
     }//GEN-LAST:event_Bt_EntrarActionPerformed
 
-    
+
     private void bt_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mostrarActionPerformed
-          if (senhaVisivel) {
-        Senha.setEchoChar('*');
-        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/mostrar.png"))); 
-    } else {
-        Senha.setEchoChar((char) 0);
-        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ocultar.png")));
-    }
-    senhaVisivel = !senhaVisivel;
+        if (senhaVisivel) {
+            Senha.setEchoChar('*');
+            bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/mostrar.png")));
+        } else {
+            Senha.setEchoChar((char) 0);
+            bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ocultar.png")));
+        }
+        senhaVisivel = !senhaVisivel;
     }//GEN-LAST:event_bt_mostrarActionPerformed
 
-   
     public String getTf_Email() {
         String email = tf_Email.getText();
         return email;
     }
-    
-      public String geTP_Senha() {
+
+    public String geTP_Senha() {
         String senha = String.valueOf(Senha.getPassword());
         return senha;
     }
 
-    
     /**
      * @param args the command line arguments
      */
@@ -280,8 +275,8 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
     }
-    
-  
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_Cadastrar;

@@ -1,25 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
-
 
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
+import java.awt.Image;
 import java.sql.SQLException;
 import java.sql.Connection;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Cadastro extends javax.swing.JFrame {
-    
+
+    private ImageIcon imagem = new ImageIcon(getClass().getResource("/Imagens/fundoJava.png"));
+    private Image imagemOriginal = imagem.getImage();
+    private Image imagemAlterada = imagemOriginal.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
 
     public Cadastro() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setTitle("ChatComigo");
+        setIconImage(imagemAlterada);
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -230,7 +232,6 @@ public class Cadastro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
     public String getTf_Nome() {
         String nome = tf_Nome.getText();
         return nome;
@@ -252,106 +253,101 @@ public class Cadastro extends javax.swing.JFrame {
     }
 
     public String getCb_SecretarioOuInspetor() {
-       String secretarioOuInspetor = String.valueOf(cb_SecretarioOuInspetor.getSelectedItem());
-       return secretarioOuInspetor; 
+        String secretarioOuInspetor = String.valueOf(cb_SecretarioOuInspetor.getSelectedItem());
+        return secretarioOuInspetor;
     }
 
     public String getCb_MasculinoOuFemenino() {
         String masculinoOuFemenino = String.valueOf(cb_MasculinoOuFeminino.getSelectedItem());
         return masculinoOuFemenino;
     }
-    
-    
-    
+
     private void limparCamposDeEntrada() {
-    tf_Nome.setText("");
-    tf_Email.setText("");
-    Senha.setText("");
-    tf_Celular.setText("");
-}
-    
-    
+        tf_Nome.setText("");
+        tf_Email.setText("");
+        Senha.setText("");
+        tf_Celular.setText("");
+    }
+
     public boolean validarNome(String nome) {
-    return nome != null && nome.trim().length() >= 3 && nome.trim().length() <= 100;
-}  
-    
+        return nome != null && nome.trim().length() >= 3 && nome.trim().length() <= 100;
+    }
+
     public boolean validarEmail(String email) {
-    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    return email.matches(regex);
-}
-    
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(regex);
+    }
+
     public boolean validarSenha(String senha) {
-    return senha != null && senha.trim().length() >= 4;
-}
-    public  boolean validarNumero(String celular) {
+        return senha != null && senha.trim().length() >= 4;
+    }
+
+    public boolean validarNumero(String celular) {
         String regex = "\\s?9\\d{4}\\d{4}";
         String regex2 = "\\s?9\\d{4}-\\d{4}";
-        
-        
-        if(celular.matches(regex)){
-        return celular.matches(regex);
+
+        if (celular.matches(regex)) {
+            return celular.matches(regex);
         }
-      return celular.matches(regex2); 
+        return celular.matches(regex2);
     }
-    
-    
-    
+
+
     private void tf_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_NomeActionPerformed
 
     }//GEN-LAST:event_tf_NomeActionPerformed
 
     private void Bt_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_CadastroActionPerformed
-    String nome = getTf_Nome();
-    String email = getTf_Email();
-    String senha = geTf_Senha();
-    String celular = getTf_Celular();
-    String funcao = getCb_SecretarioOuInspetor();
-    String sexo = getCb_MasculinoOuFemenino();
-    
-    if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    
-    if (!validarNome(nome)) {
-    JOptionPane.showMessageDialog(this, "O nome deve ter entre 3 e 50 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-    
-    if (!validarEmail(email)) {
-    JOptionPane.showMessageDialog(this, "O email deve seguir a seguinte regra nome@dominio.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-    
-    if (!validarSenha(senha)) {
-    JOptionPane.showMessageDialog(this, "A senha tem que possuir mais que 3 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-    
-      if (!validarNumero(celular)) {
-    JOptionPane.showMessageDialog(this, "O número deve começar com o dígito 9 e depois conter 8 dígitos 91111-1111 ou 911111111.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-    
-    
-    try (Connection conexao = BancoDeDados.BancoDeDadosConexao.getConnection()) {
-        RepositorioDeUsuario repositorio = new RepositorioDeUsuario(conexao);
-        Usuario usuario = new Usuario(nome, email, senha ,celular , funcao, sexo);
-        repositorio.salvarUsuario(usuario);
-        limparCamposDeEntrada();
-        JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-      
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Erro ao criar usuário: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    
-}
+        String nome = getTf_Nome();
+        String email = getTf_Email();
+        String senha = geTf_Senha();
+        String celular = getTf_Celular();
+        String funcao = getCb_SecretarioOuInspetor();
+        String sexo = getCb_MasculinoOuFemenino();
+
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarNome(nome)) {
+            JOptionPane.showMessageDialog(this, "O nome deve ter entre 3 e 50 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarEmail(email)) {
+            JOptionPane.showMessageDialog(this, "O email deve seguir a seguinte regra nome@dominio.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarSenha(senha)) {
+            JOptionPane.showMessageDialog(this, "A senha tem que possuir mais que 3 caracteres.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarNumero(celular)) {
+            JOptionPane.showMessageDialog(this, "O número deve começar com o dígito 9 e depois conter 8 dígitos 91111-1111 ou 911111111.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try (Connection conexao = BancoDeDados.BancoDeDadosConexao.getConnection()) {
+            RepositorioDeUsuario repositorio = new RepositorioDeUsuario(conexao);
+            Usuario usuario = new Usuario(nome, email, senha, celular, funcao, sexo);
+            repositorio.salvarUsuario(usuario);
+            limparCamposDeEntrada();
+            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao criar usuário: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+
+        }
     }//GEN-LAST:event_Bt_CadastroActionPerformed
 
     private void lb_voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_voltarMouseClicked
-            TelaInicial inicio = new TelaInicial();
-            this.dispose();
-            inicio.setVisible(true);
+        TelaInicial inicio = new TelaInicial();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_lb_voltarMouseClicked
 
     private void cb_SecretarioOuInspetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_SecretarioOuInspetorActionPerformed
