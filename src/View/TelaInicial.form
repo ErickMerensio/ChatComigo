@@ -262,7 +262,7 @@
         <Component class="javax.swing.JButton" name="bt_mostrar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/eye-off-outline-custom.png"/>
+              <Image iconType="3" name="/Imagens/mostrar.png"/>
             </Property>
           </Properties>
           <Events>

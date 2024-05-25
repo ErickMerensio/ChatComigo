@@ -147,7 +147,7 @@ public class TelaLogado extends javax.swing.JFrame{
 
         jb_file.setBackground(new java.awt.Color(255, 255, 255));
         jb_file.setForeground(new java.awt.Color(255, 255, 255));
-        jb_file.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/file.png"))); // NOI18N
+        jb_file.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/arquivo.png"))); // NOI18N
         jb_file.setBorder(null);
         jb_file.setMaximumSize(new java.awt.Dimension(32, 16));
         jb_file.setPreferredSize(new java.awt.Dimension(32, 16));
@@ -253,9 +253,9 @@ public class TelaLogado extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jb_logo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(168, 168, 168)
                 .addComponent(jLabel1)
-                .addGap(248, 248, 248))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,21 +323,21 @@ public class TelaLogado extends javax.swing.JFrame{
     }//GEN-LAST:event_jb_fileMouseClicked
 
     private void jb_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_fileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Text Files", "txt", "csv"));
-        int returnValue = fileChooser.showOpenDialog(null);
+        JFileChooser seletorDeArquivos = new JFileChooser();
+        seletorDeArquivos.setFileFilter(new FileNameExtensionFilter("Text Files", "txt", "csv"));
+        int returnValue = seletorDeArquivos.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            File arquivoSelecionado = seletorDeArquivos.getSelectedFile();
             try {
-                String fileName = selectedFile.getName();
-                if (fileName.endsWith(".txt") || fileName.endsWith(".csv")) {
-                    StringBuilder content = new StringBuilder();
-                    try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            content.append(line).append("\n");
+                String nomeDoArquivo = arquivoSelecionado.getName();
+                if (nomeDoArquivo.endsWith(".txt") || nomeDoArquivo.endsWith(".csv")) {
+                    StringBuilder conteudo = new StringBuilder();
+                    try (BufferedReader reader = new BufferedReader(new FileReader(arquivoSelecionado))) {
+                        String linha;
+                        while ((linha = reader.readLine()) != null) {
+                            conteudo.append(linha).append("\n");
                         }
-                       cliente.enviarMensagem(content.toString());
+                       cliente.enviarMensagem(conteudo.toString());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro ao ler o arquivo: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                     }

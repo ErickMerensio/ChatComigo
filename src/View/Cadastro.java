@@ -284,8 +284,14 @@ public class Cadastro extends javax.swing.JFrame {
     return senha != null && senha.trim().length() >= 4;
 }
     public  boolean validarNumero(String celular) {
-        String regex = "\\(?\\d{2}\\)?\\s?9\\d{4}-\\d{4}";
+        String regex = "\\s?9\\d{4}\\d{4}";
+        String regex2 = "\\s?9\\d{4}-\\d{4}";
+        
+        
+        if(celular.matches(regex)){
         return celular.matches(regex);
+        }
+      return celular.matches(regex2); 
     }
     
     
@@ -323,7 +329,7 @@ public class Cadastro extends javax.swing.JFrame {
 }
     
       if (!validarNumero(celular)) {
-    JOptionPane.showMessageDialog(this, "O número deve começar com o dd e depois os numero ex (11) 1111-1111.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, "O número deve começar com o dígito 9 e depois conter 8 dígitos 91111-1111 ou 911111111.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
     return;
 }
     

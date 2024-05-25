@@ -8,10 +8,6 @@ import BancoDeDados.BancoDeDadosConexao;
 //import Servidor.Servidor;
 import Models.Usuario;
 import Repositorio.RepositorioDeUsuario;
-import View.Cadastro;
-import View.TelaLogado;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,7 +23,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private RepositorioDeUsuario repositorioUsuario;
     private Connection conexao;
-    private boolean isPasswordVisible = false; 
+    private boolean senhaVisivel = false; 
     
     public TelaInicial() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -148,7 +144,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-off-outline-custom.png"))); // NOI18N
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/mostrar.png"))); // NOI18N
         bt_mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_mostrarActionPerformed(evt);
@@ -252,19 +248,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     
     private void bt_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mostrarActionPerformed
-          if (isPasswordVisible) {
+          if (senhaVisivel) {
         Senha.setEchoChar('*');
-        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-off-outline-custom.png"))); // Altera o ícone para mostrar a senha
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/mostrar.png"))); 
     } else {
         Senha.setEchoChar((char) 0);
-        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/eye-outline-custom.png"))); // Altera o ícone para ocultar a senha
+        bt_mostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ocultar.png")));
     }
-    isPasswordVisible = !isPasswordVisible;
+    senhaVisivel = !senhaVisivel;
     }//GEN-LAST:event_bt_mostrarActionPerformed
 
-
-  
-    
+   
     public String getTf_Email() {
         String email = tf_Email.getText();
         return email;
